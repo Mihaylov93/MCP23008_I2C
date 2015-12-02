@@ -23,19 +23,19 @@ void setup(){
   sendBits(IODIR,0xFF); //sets the IODIR to High impedance 
   
 }
-void sendBits(const byte operation, const int pins){
+void sendBits(const byte reg, const int gpio){
   Wire.beginTransmission(MCP23_ADDR);
-  Wire.write(operation);//sets the operation
-  Wire.write(pins);//on which pins
+  Wire.write(reg);//sets the register
+  Wire.write(gpio);//on which gpio pins
   Wire.endTransmission();
 }
   
   
 void loop(){
-  sendBits(0x00,0x00); // 1-Input 0-Output
-  sendBits(0x09,0xFF);
+  sendBits(IODIR,0x00); // 1-Input 0-Output
+  sendBits(GPIO,0xFF);
   delay(2000);
-  sendBits(0x09,0x00);
+  sendBits(GPIO,0x00);
   delay(2000);
 
 }
