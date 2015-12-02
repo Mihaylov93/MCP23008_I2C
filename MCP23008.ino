@@ -6,13 +6,24 @@
 //0x20 + ( a2 * 4) + ( a1 * 2) + ( a0 )
 #define MCP23_ADDR B0100001
 
+#define IODIR 0x00 //Controls the I/O 1=Output 0=Input
+#define IPOL 0x01  //Input Polarity
+#define GPINTEN 0x02
+#define DEFVAL 0x03
+#define INTCON 0x04
+#define IOCON 0x05
+#define GPPU 0x06 //Pull-up configuration(when configured as input) 1=PU enabled 0=PU Disabled
+#define INTF 0x07
+#define INTCAP 0x08
+#define GPIO 0x09 //GPIO pins logic level 1=H 0=L
+#define OLAT 0x0A
 
 void setup(){
   Wire.begin();
-  sendBits(0x00,0xFF); //sets the IODIR to High impedance 
+  sendBits(IODIR,0xFF); //sets the IODIR to High impedance 
   
 }
-void sendBits(const int operation, const int pins){
+void sendBits(const byte operation, const int pins){
   Wire.beginTransmission(MCP23_ADDR);
   Wire.write(operation);//sets the operation
   Wire.write(pins);//on which pins
